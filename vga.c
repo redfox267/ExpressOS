@@ -59,13 +59,14 @@ void print(const char* s){
 								tabLen--;
 						}
 						break;
-			default: 
+				default: 
 						if(column == width){
 							 newLine();
 						}
 						vga[line * width + (column++)] = *s | currentColor;
 						break;
 			}
+			s++;
 		}
 }
 
