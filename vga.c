@@ -39,7 +39,37 @@ void scrollUp(){
 		vga[(height-1)*width +x] = (currentColor<<8) | ' ';	
 	}
 }		
-	
+void println(const char* s) {
+	newLine();
+	while(*s != '\0') {
+		switch (*s){
+			case '\n':
+				newLine();
+				break;
+				
+			case '\r':
+				column =0;
+				break;
+
+			case '\t':
+				if(column == width) {
+					newLine();
+				}
+				uint16_t tabLen = 4-(column%4);
+				while(tabLen != 0) {
+					vga[(line*width+(column++))] = (currentColor << 8) | ' ';
+					tabLen--;
+				}
+				break;
+			default:
+				if(column == width){
+					newLine();
+				}
+				vga[(line*width+(column++))] = (defaultColor << 8) | *s;
+		}
+		s++;
+	}	
+}
 void print(const char* s){
 
 	while(*s != '\0') {

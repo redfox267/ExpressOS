@@ -20,6 +20,7 @@ void kmain(void) {
 
 	print(msg);
 	print("\ntest\ttab");
+	println("Testing println \nnextline");
 	//char* msg = "Welcome to ExpressOS";
 		
 	//uint8_t color = (COLOR8_LIGHT_GREY << 4) | (COLOR8_BLACK);

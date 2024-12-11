@@ -7,6 +7,7 @@
 #define height 25
 
 void print(const char* s);
+void println(const char* s);
 void scrollUp();
 void newline();
 void Reset();
