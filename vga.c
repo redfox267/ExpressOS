@@ -40,7 +40,6 @@ void scrollUp(){
 	}
 }		
 void println(const char* s) {
-	newLine();
 	while(*s != '\0') {
 		switch (*s){
 			case '\n':
@@ -69,6 +68,7 @@ void println(const char* s) {
 		}
 		s++;
 	}	
+	newLine();
 }
 void print(const char* s){
 
