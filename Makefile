@@ -25,7 +25,9 @@ boot.o: src/boot.s
 gdts.o: src/gdt.s
 	$(AS) $(ASFLAGS) src/gdt.s -o gdts.o
 
-kernel.iso: kernel.o vga.o boot.o gdt.o gdts.o
+kernel: kernel.o vga.o boot.o gdt.o gdts.o
 	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o vga.o gdt.o gdts.o
-	mv kernel Express/boot/kernel
+
+kernel.iso: kernel Express/boot/grub
+	cp kernel Express/boot/kernel
 	grub-mkrescue -o kernel.iso Express/
