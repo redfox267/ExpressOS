@@ -1,6 +1,6 @@
 .PHONY: clean
 
-all: image
+all: kernel.iso
 
 clean:
 	rm -f *.o kernel.iso
@@ -18,7 +18,7 @@ boot.o: src/boot.s src/gdt.s
 	nasm -f elf32 src/boot.s -o boot.o
 	nasm -f elf32 src/gdt.s -o gdts.o
 
-image: kernel.o vga.o boot.o gdt.o 
+kernel.iso: kernel.o vga.o boot.o gdt.o 
 	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o vga.o gdt.o gdts.o
 	mv kernel Express/boot/kernel
 	grub-mkrescue -o kernel.iso Express/
