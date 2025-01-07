@@ -22,4 +22,3 @@ image: kernel.o vga.o boot.o gdt.o
 	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o vga.o gdt.o gdts.o
 	mv kernel Express/boot/kernel
 	grub-mkrescue -o kernel.iso Express/
-	rm *.o
