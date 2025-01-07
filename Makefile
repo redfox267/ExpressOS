@@ -8,7 +8,8 @@ ASFLAGS := -f elf32
 all: kernel.iso
 
 clean:
-	rm -f *.o kernel.iso
+	rm -f *.o kernel kernel.iso
+	rm -f Express/boot/kernel
 
 kernel.o: src/kernel.c
 	$(CC) $(CFLAGS) -c src/kernel.c -o kernel.o
