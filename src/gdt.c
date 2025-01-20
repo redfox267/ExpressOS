@@ -26,7 +26,7 @@ void initGdt() {
     writeTSS(5, 0x10, 0x0);
 
     gdt_flush((uint32_t) &gdt_ptr);
-//    tss_flush();
+    tss_flush();
 
 }
 
