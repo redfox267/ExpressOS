@@ -12,7 +12,7 @@ struct tss_entry_struct tss_entry;
 
 void initGdt() {
 
-    gdt_ptr.limit = (sizeof(struct gdt_entry_struct) * 5)-1 ;
+    gdt_ptr.limit = (sizeof(struct gdt_entry_struct) * 6)-1 ;
     gdt_ptr.base =(uint32_t) &gdt_entries;
 
     //These are the entries in the GDT table

@@ -29,8 +29,15 @@ gdts.o: src/gdt.s
 util.o: src/util.c
 	$(CC) $(CFLAGS) -c src/util.c -o util.o
 
-kernel: kernel.o vga.o boot.o gdt.o gdts.o util.o
-	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o vga.o gdt.o gdts.o util.o
+idt.o: src/idt.c
+	$(CC) $(CFLAGS) -c src/idt.c -o idt.o
+
+idts.o: src/idt.s
+	$(AS) $(ASFLAGS) src/idt.s -o idts.o
+
+
+kernel: kernel.o vga.o boot.o gdt.o gdts.o util.o idt.o idts.o
+	ld -m elf_i386 -T linker.ld -o kernel boot.o kernel.o vga.o gdt.o gdts.o util.o idt.o idts.o
 
 kernel.iso: kernel Express/boot/grub
 	cp kernel Express/boot/kernel
