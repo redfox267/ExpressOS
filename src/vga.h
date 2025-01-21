@@ -11,5 +11,3 @@ void println(const char* s);
 void scrollUp();
 void newline();
 void Reset();
-
-
