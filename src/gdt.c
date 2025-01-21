@@ -34,16 +34,17 @@ void writeTSS(uint32_t num, uint16_t ss0, uint32_t esp0) {
     uint32_t base = (uint32_t) &tss_entry;
     uint32_t limit = base + sizeof(tss_entry);
 
-    setGdtGate(num, base, limit, 0xE9, 0x0);
     // Flag: 1110 1001
     // Look up access byte to understand each part of the byte
+    setGdtGate(num, base, limit, 0xE9, 0x0);
 
+    // sets all values in tss to 0
     memset(&tss_entry,0,sizeof(tss_entry));
     
     tss_entry.ss0 = ss0;
     tss_entry.esp0 = esp0;
-    tss_entry.cs = 0x08 | 0x03;    
-    tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x10 | 0x03;
+    tss_entry.cs = 0x08 | 0x03;   // sets code segement to 0x08 but OR's last 2 bits to switch into kernel mode 
+    tss_entry.ss = tss_entry.ds = tss_entry.es = tss_entry.fs = tss_entry.gs = 0x10 | 0x03; // similar to code above sets segements to 0x10 and changes it to kernel mode
 }
 
 
