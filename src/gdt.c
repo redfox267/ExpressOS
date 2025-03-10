@@ -1,4 +1,5 @@
 #include "gdt.h"
+#include "vga.h"
 #include "stdint.h"
 #include "util.h"
 
@@ -28,6 +29,7 @@ void initGdt() {
     gdt_flush((uint32_t) &gdt_ptr);
     tss_flush();
 
+    println("GDT Initialized");
 }
 
 void writeTSS(uint32_t num, uint16_t ss0, uint32_t esp0) {

@@ -16,3 +16,9 @@ void outPortB(uint16_t port, uint8_t value) {
     "outb %1, %0" : : "dN" (port), "a" (value)
   );
 }
+
+char inPortB(uint16_t port) {
+  char c;
+  asm volatile("inb %1, %0": "=a" (c): "dN" (port));
+  return c;
+}

@@ -10,7 +10,7 @@ struct idt_ptr_struct idt_ptr;
 extern void idt_flush(uint32_t);
 
 void initIdt(){
-    idt_ptr.limit = sizeof(struct idt_entry_struct) * 256 -1;
+    idt_ptr.limit = sizeof(struct idt_entry_struct) * 256 -1; //should be 256
     idt_ptr.base = (uint32_t) &idt_entries;
     
     memset(&idt_entries, 0, sizeof(struct idt_entry_struct) * 256);
@@ -89,6 +89,8 @@ void initIdt(){
     setIdtGate(177, (uint32_t)isr177, 0x08, 0x8E);
 
     idt_flush((uint32_t) &idt_ptr);
+
+    println("IDT Initalized");
 }
 
 void setIdtGate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags) {
@@ -100,7 +102,7 @@ void setIdtGate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags) {
 }
 
 // standard list of possible interrupts/errors
-unsigned char* exception_msgs[] = {
+char* exception_msgs[] = {
   "Divide By Zero",
   "Debug",
   "Non Maskable Interrupt",
@@ -136,7 +138,7 @@ unsigned char* exception_msgs[] = {
 
 void isr_handler(struct InterruptRegisters* regs) {
   if(regs->int_no < 32){
-    print(exception_msgs[regs->int_no]);
+    print(exception_msgs[regs->int_no-1]);
     print("\n");
     print("Exception Sys Halt");
     for(;;);
@@ -149,6 +151,7 @@ void* irq_routines[16] = {
 };
 
 void irq_install_handler(int irq, void(*handler)(struct InterruptRegisters *r)){
+  println("irq to be installed");
   irq_routines[irq] = handler;
 }
 
@@ -157,6 +160,7 @@ void irq_uninstall_handler(int irq) {
 }
 
 void irq_handler(struct InterruptRegisters* regs) {
+  println("irq handler func called");
   void (*handler)(struct InterruptRegisters* regs);
 
   handler = irq_routines[regs->int_no - 32];

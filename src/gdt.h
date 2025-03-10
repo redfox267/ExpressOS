@@ -1,5 +1,4 @@
 #include "stdint.h"
-
 //limit is the upper limit of the segment (defined by a 20 bit integer), base is the starting point of the segment 
 //Access is the ring level (0 : highest 3 : lowest)
 //flags define whether the segment is a "code segment" or a "data segment"

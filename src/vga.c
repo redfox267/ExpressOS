@@ -1,3 +1,4 @@
+#include "stdint.h"
 #include "vga.h"
 
 uint16_t column = 0;
@@ -100,32 +101,7 @@ void print(const char* s){
 		}
 		s++;
 	}	
-	/*while(*s){
-			switch (*s) {
-				case '\n':
-						newLine();
-						break;
-				case '\r':
-						column = 0;
-						break;
-				case '\t':
-						if(column == width){
-								newLine();
-						}
-						uint16_t tabLen = 4-(column%4);
-						while(tabLen != 0) {
-								vga[line * width + (column++)] = ' ' | currentColor;
-								tabLen--;
-						}
-						break;
-				default: 
-						if(column == width){
-							 newLine();
-						}
-						vga[line * width + (column++)] = *s | currentColor;
-						break;
-			}
-			s++;
-		}*/
 }
+
+
 
